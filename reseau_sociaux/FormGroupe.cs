@@ -208,6 +208,33 @@ namespace reseau_sociaux
                 GroupMessageBubbleControl bulle = new GroupMessageBubbleControl();
                 bulle.SetMessage(msg, UserSession.CurrentUser.id);
 
+                // Suppression d'un message que l'on a envoyé
+                bulle.MessageDeleted += (s, e) =>
+                {
+                    GroupMessageBubbleControl bulleCliquee = (GroupMessageBubbleControl)s!;
+                    int messageId = bulleCliquee.MessageId;
+
+                    DialogResult reponse = MessageBox.Show(
+                        "Supprimer ce message ?",
+                        "Supprimer le message",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (reponse != DialogResult.Yes) return;
+
+                    bool succes = GroupeRepository.SupprimerMessageGroupe(messageId, UserSession.CurrentUser.id);
+                    if (!succes)
+                    {
+                        MessageBox.Show("Erreur lors de la suppression du message.", "Groupe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if (groupeSelectionne != null)
+                    {
+                        ChargerMessagesGroupe(groupeSelectionne.GroupeId);
+                    }
+                };
+
                 // Panneau conteneur pour aligner la bulle à gauche ou à droite
                 Panel conteneur = new Panel();
                 conteneur.Width = flowLayoutPanelMessages.ClientSize.Width - 20;
@@ -270,7 +297,6 @@ namespace reseau_sociaux
         private void parrotButtonCreer_Click(object sender, EventArgs e)
         {
             string nom = bigTextBoxNom.Text.Trim();
-            string description = bigTextBoxDescription.Text.Trim();
 
             if (string.IsNullOrEmpty(nom))
             {
@@ -278,7 +304,7 @@ namespace reseau_sociaux
                 return;
             }
 
-            bool succes = GroupeRepository.CreerGroupe(UserSession.CurrentUser.id, nom, description);
+            bool succes = GroupeRepository.CreerGroupe(UserSession.CurrentUser.id, nom);
             if (!succes)
             {
                 MessageBox.Show("Erreur lors de la création du groupe.", "Groupe", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -288,7 +314,6 @@ namespace reseau_sociaux
             MessageBox.Show("Le groupe « " + nom + " » a été créé.", "Groupe", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             bigTextBoxNom.Text = string.Empty;
-            bigTextBoxDescription.Text = string.Empty;
 
             // Recharger la liste puis sélectionner le groupe qui vient d'être créé
             List<Groupe>? liste = GroupeRepository.GetAllGroupes(UserSession.CurrentUser.id);

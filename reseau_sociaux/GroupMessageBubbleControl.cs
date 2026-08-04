@@ -6,6 +6,12 @@ namespace reseau_sociaux
 {
     public partial class GroupMessageBubbleControl : UserControl
     {
+        // Événement déclenché quand l'utilisateur demande la suppression du message
+        public event EventHandler? MessageDeleted;
+
+        // Identifiant du message affiché par cette bulle
+        public int MessageId { get; set; }
+
         public GroupMessageBubbleControl()
         {
             InitializeComponent();
@@ -14,6 +20,8 @@ namespace reseau_sociaux
         // Remplit la bulle avec le message et applique le style selon l'expéditeur
         public void SetMessage(GroupeMessage msg, int currentUserId)
         {
+            MessageId = msg.MessageId;
+
             lblSender.Text = msg.FullName;
             lblContent.Text = msg.Content;
             lblTime.Text = msg.TimeSent.ToString("HH:mm");
@@ -27,6 +35,8 @@ namespace reseau_sociaux
                 lblSender.ForeColor = Color.White;
                 lblContent.ForeColor = Color.White;
                 lblTime.ForeColor = Color.LightGray;
+                btnSupprimerMsg.Visible = true;
+                btnSupprimerMsg.ForeColor = Color.White;
             }
             else
             {
@@ -35,9 +45,15 @@ namespace reseau_sociaux
                 lblSender.ForeColor = Color.FromArgb(0, 102, 204);
                 lblContent.ForeColor = Color.Black;
                 lblTime.ForeColor = Color.Gray;
+                btnSupprimerMsg.Visible = false;
             }
 
             AjusterTaille();
+        }
+
+        private void btnSupprimerMsg_Click(object sender, EventArgs e)
+        {
+            MessageDeleted?.Invoke(this, EventArgs.Empty);
         }
 
         // Recalcule la hauteur de la bulle pour que le texte soit entièrement visible
@@ -47,6 +63,13 @@ namespace reseau_sociaux
             const int marge = 10;
 
             this.Width = largeurBulle;
+
+            // Bouton de suppression en haut à droite
+            btnSupprimerMsg.Location = new Point(largeurBulle - btnSupprimerMsg.Width - 6, 4);
+
+            // Le nom de l'expéditeur ne doit pas passer sous le bouton
+            lblSender.MaximumSize = new Size(largeurBulle - btnSupprimerMsg.Width - 26, 23);
+            lblSender.AutoEllipsis = true;
 
             int largeurTexte = largeurBulle - (2 * marge);
 

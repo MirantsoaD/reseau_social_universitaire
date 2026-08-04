@@ -9,7 +9,7 @@ namespace reseau_sociaux
         private static string connectionString = "Host=localhost;Database=reseaux_sociaux;Username=postgres;Persist Security Info=True;Password=DannyRandria";
 
         // Cree un nouveau groupe et inscrit le createur comme Administrateur
-        public static bool CreerGroupe(int createurId, string nom, string description)
+        public static bool CreerGroupe(int createurId, string nom)
         {
             if (string.IsNullOrWhiteSpace(nom)) { return false; }
 
@@ -20,12 +20,11 @@ namespace reseau_sociaux
                     conn.Open();
 
                     int groupeId;
-                    string insertGroupe = @"INSERT INTO groupe (nom, description, createur_id) 
-                                        VALUES (@nom, @description, @createurId) RETURNING groupe_id;";
+                    string insertGroupe = @"INSERT INTO groupe (nom, createur_id) 
+                                        VALUES (@nom, @createurId) RETURNING groupe_id;";
                     using (NpgsqlCommand cmd = new NpgsqlCommand(insertGroupe, conn))
                     {
                         cmd.Parameters.AddWithValue("@nom", nom);
-                        cmd.Parameters.AddWithValue("@description", (object?)description ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@createurId", createurId);
 
                         object result = cmd.ExecuteScalar();
@@ -402,6 +401,31 @@ namespace reseau_sociaux
             }
 
             return messages;
+        }
+
+        // Un membre supprime uniquement son propre message dans le groupe
+        public static bool SupprimerMessageGroupe(int messageId, int etudiantId)
+        {
+            using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"DELETE FROM groupe_message WHERE message_id = @messageId AND etudiant_id = @etudiantId;";
+
+                    using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@messageId", messageId);
+                        cmd.Parameters.AddWithValue("@etudiantId", etudiantId);
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors de la suppression du message : " + ex.Message);
+                    return false;
+                }
+            }
         }
     }
 }

@@ -31,7 +31,6 @@
             plLeft = new Panel();
             lblSectionCreer = new Label();
             bigTextBoxNom = new ReaLTaiizor.Controls.BigTextBox();
-            bigTextBoxDescription = new ReaLTaiizor.Controls.BigTextBox();
             parrotButtonCreer = new ReaLTaiizor.Controls.ParrotButton();
             lblMesGroupes = new Label();
             listBoxGroupes = new ListBox();
@@ -71,7 +70,6 @@
             plLeft.BackColor = Color.White;
             plLeft.Controls.Add(lblSectionCreer);
             plLeft.Controls.Add(bigTextBoxNom);
-            plLeft.Controls.Add(bigTextBoxDescription);
             plLeft.Controls.Add(parrotButtonCreer);
             plLeft.Controls.Add(lblMesGroupes);
             plLeft.Controls.Add(listBoxGroupes);
@@ -108,23 +106,6 @@
             bigTextBoxNom.TextAlignment = HorizontalAlignment.Left;
             bigTextBoxNom.UseSystemPasswordChar = false;
             // 
-            // bigTextBoxDescription
-            // 
-            bigTextBoxDescription.BackColor = Color.White;
-            bigTextBoxDescription.Font = new Font("Tahoma", 11F);
-            bigTextBoxDescription.ForeColor = Color.DimGray;
-            bigTextBoxDescription.Image = null;
-            bigTextBoxDescription.Location = new Point(16, 104);
-            bigTextBoxDescription.MaxLength = 500;
-            bigTextBoxDescription.Multiline = true;
-            bigTextBoxDescription.Name = "bigTextBoxDescription";
-            bigTextBoxDescription.PlaceholderText = "Description (facultatif)";
-            bigTextBoxDescription.ReadOnly = false;
-            bigTextBoxDescription.Size = new Size(284, 66);
-            bigTextBoxDescription.TabIndex = 2;
-            bigTextBoxDescription.TextAlignment = HorizontalAlignment.Left;
-            bigTextBoxDescription.UseSystemPasswordChar = false;
-            // 
             // parrotButtonCreer
             // 
             parrotButtonCreer.BackgroundColor = Color.FromArgb(255, 255, 255);
@@ -139,11 +120,11 @@
             parrotButtonCreer.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
             parrotButtonCreer.HoverTextColor = Color.DodgerBlue;
             parrotButtonCreer.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
-            parrotButtonCreer.Location = new Point(16, 186);
+            parrotButtonCreer.Location = new Point(16, 108);
             parrotButtonCreer.Name = "parrotButtonCreer";
             parrotButtonCreer.Size = new Size(160, 36);
             parrotButtonCreer.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            parrotButtonCreer.TabIndex = 3;
+            parrotButtonCreer.TabIndex = 2;
             parrotButtonCreer.TextColor = Color.FromArgb(64, 64, 64);
             parrotButtonCreer.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             parrotButtonCreer.Vertical_Alignment = StringAlignment.Center;
@@ -154,10 +135,10 @@
             lblMesGroupes.AutoSize = true;
             lblMesGroupes.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblMesGroupes.ForeColor = Color.FromArgb(64, 64, 64);
-            lblMesGroupes.Location = new Point(16, 244);
+            lblMesGroupes.Location = new Point(16, 170);
             lblMesGroupes.Name = "lblMesGroupes";
             lblMesGroupes.Size = new Size(106, 28);
-            lblMesGroupes.TabIndex = 4;
+            lblMesGroupes.TabIndex = 3;
             lblMesGroupes.Text = "Mes Groupes";
             // 
             // listBoxGroupes
@@ -166,10 +147,10 @@
             listBoxGroupes.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             listBoxGroupes.IntegralHeight = false;
             listBoxGroupes.ItemHeight = 22;
-            listBoxGroupes.Location = new Point(16, 280);
+            listBoxGroupes.Location = new Point(16, 206);
             listBoxGroupes.Name = "listBoxGroupes";
-            listBoxGroupes.Size = new Size(284, 280);
-            listBoxGroupes.TabIndex = 5;
+            listBoxGroupes.Size = new Size(284, 354);
+            listBoxGroupes.TabIndex = 4;
             listBoxGroupes.SelectedIndexChanged += listBoxGroupes_SelectedIndexChanged;
             // 
             // plRight
@@ -521,7 +502,6 @@
         private Panel plLeft;
         private Label lblSectionCreer;
         private ReaLTaiizor.Controls.BigTextBox bigTextBoxNom;
-        private ReaLTaiizor.Controls.BigTextBox bigTextBoxDescription;
         private ReaLTaiizor.Controls.ParrotButton parrotButtonCreer;
         private Label lblMesGroupes;
         private ListBox listBoxGroupes;

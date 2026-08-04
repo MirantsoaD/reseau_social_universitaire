@@ -31,6 +31,7 @@ namespace reseau_sociaux
             lblSender = new Label();
             lblContent = new Label();
             lblTime = new Label();
+            btnSupprimerMsg = new Button();
             SuspendLayout();
             // 
             // lblSender
@@ -63,11 +64,30 @@ namespace reseau_sociaux
             lblTime.TabIndex = 2;
             lblTime.Text = "12:34";
             // 
+            // btnSupprimerMsg
+            // 
+            btnSupprimerMsg.BackColor = Color.Transparent;
+            btnSupprimerMsg.FlatAppearance.BorderSize = 0;
+            btnSupprimerMsg.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 155, 255);
+            btnSupprimerMsg.FlatStyle = FlatStyle.Flat;
+            btnSupprimerMsg.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSupprimerMsg.ForeColor = Color.White;
+            btnSupprimerMsg.Location = new Point(304, 4);
+            btnSupprimerMsg.Name = "btnSupprimerMsg";
+            btnSupprimerMsg.Size = new Size(28, 22);
+            btnSupprimerMsg.TabIndex = 3;
+            btnSupprimerMsg.Text = "×";
+            btnSupprimerMsg.TextAlign = ContentAlignment.MiddleCenter;
+            btnSupprimerMsg.UseVisualStyleBackColor = false;
+            btnSupprimerMsg.Visible = false;
+            btnSupprimerMsg.Click += btnSupprimerMsg_Click;
+            // 
             // GroupMessageBubbleControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(230, 230, 230);
+            Controls.Add(btnSupprimerMsg);
             Controls.Add(lblTime);
             Controls.Add(lblContent);
             Controls.Add(lblSender);
@@ -82,5 +102,6 @@ namespace reseau_sociaux
         private Label lblSender;
         private Label lblContent;
         private Label lblTime;
+        private Button btnSupprimerMsg;
     }
 }
