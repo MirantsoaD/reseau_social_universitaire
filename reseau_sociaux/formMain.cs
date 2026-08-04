@@ -111,7 +111,10 @@ namespace reseau_sociaux
 
         private void parrotButtonGroup_main_Click(object sender, EventArgs e)
         {
-
+            using (FormGroupe groupe = new FormGroupe())
+            {
+                groupe.ShowDialog();
+            }
         }
 
         private void parrotButtonSetting_main_Click(object sender, EventArgs e)

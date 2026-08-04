@@ -1,18 +1,255 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace reseau_sociaux
 {
     public partial class FormGroupe : Form
     {
+        // Tous les groupes affichés dans la liste de gauche
+        private List<Groupe>? groupes;
+
+        // Le groupe actuellement sélectionné (détail affiché à droite)
+        private Groupe? groupeSelectionne;
+
+        // Étudiants encore invitable dans le groupe sélectionné
+        private List<Etudiant>? etudiantsInvitable;
+
         public FormGroupe()
         {
             InitializeComponent();
         }
+
+        #region --- CHARGEMENT ET AFFICHAGE ---
+
+        private void FormGroupe_Load(object sender, EventArgs e)
+        {
+            ChargerGroupes();
+        }
+
+        // Recharge la liste des groupes en gardant la sélection actuelle
+        private void ChargerGroupes()
+        {
+            List<Groupe>? liste = GroupeRepository.GetAllGroupes(UserSession.CurrentUser.id);
+            ChargerListeGroupes(liste, groupeSelectionne?.GroupeId ?? -1);
+        }
+
+        // Affiche la liste des groupes et sélectionne le groupe demandé (idASelectionner)
+        private void ChargerListeGroupes(List<Groupe>? liste, int idASelectionner)
+        {
+            groupes = liste;
+            listBoxGroupes.Items.Clear();
+
+            if (liste == null || liste.Count == 0)
+            {
+                groupeSelectionne = null;
+                AfficherDetailsGroupe();
+                return;
+            }
+
+            int indexVoulu = -1;
+            int i = 0;
+            foreach (Groupe g in liste)
+            {
+                listBoxGroupes.Items.Add(FormaterGroupe(g));
+                if (g.GroupeId == idASelectionner)
+                {
+                    indexVoulu = i;
+                }
+                i++;
+            }
+
+            // Choisir le groupe à afficher
+            if (indexVoulu >= 0)
+            {
+                listBoxGroupes.SelectedIndex = indexVoulu;
+            }
+            else
+            {
+                listBoxGroupes.SelectedIndex = 0; // premier groupe par défaut
+            }
+        }
+
+        // "Nom du groupe — X membres"
+        private static string FormaterGroupe(Groupe g)
+        {
+            return string.Format("{0} — {1}", g.Nom, FormaterMembres(g.MembreCount));
+        }
+
+        // "1 membre" ou "X membres"
+        private static string FormaterMembres(int nombre)
+        {
+            return nombre > 1
+                ? string.Format("{0} membres", nombre)
+                : string.Format("{0} membre", nombre);
+        }
+
+        private void listBoxGroupes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxGroupes.SelectedIndex >= 0 && groupes != null && listBoxGroupes.SelectedIndex < groupes.Count)
+            {
+                groupeSelectionne = groupes[listBoxGroupes.SelectedIndex];
+            }
+            else
+            {
+                groupeSelectionne = null;
+            }
+
+            AfficherDetailsGroupe();
+        }
+
+        // Affiche les détails du groupe sélectionné dans la partie droite
+        private void AfficherDetailsGroupe()
+        {
+            if (groupeSelectionne == null)
+            {
+                lblGroupeNom.Text = "Aucun groupe sélectionné";
+                lblCreateur.Text = string.Empty;
+                lblMembreCount.Text = string.Empty;
+                lblMonRole.Visible = false;
+                listBoxMembres.Items.Clear();
+                etudiantsInvitable = null;
+                comboBoxInviter.Items.Clear();
+                AfficherSectionInvitation(false);
+                return;
+            }
+
+            Groupe g = groupeSelectionne;
+
+            lblGroupeNom.Text = g.Nom;
+            lblCreateur.Text = "Créé par " + g.CreateurNom;
+            lblMembreCount.Text = FormaterMembres(g.MembreCount);
+
+            // Son propre rôle s'il est membre du groupe
+            if (string.IsNullOrEmpty(g.RoleMoi))
+            {
+                lblMonRole.Visible = false;
+            }
+            else
+            {
+                lblMonRole.Text = "Votre rôle : " + g.RoleMoi;
+                lblMonRole.Visible = true;
+            }
+
+            ChargerMembres(g.GroupeId);
+            ChargerInvitable(g.GroupeId);
+        }
+
+        private void ChargerMembres(int groupeId)
+        {
+            listBoxMembres.Items.Clear();
+
+            List<GroupeMembre>? membres = GroupeRepository.GetMembres(groupeId);
+            if (membres == null) return;
+
+            foreach (GroupeMembre m in membres)
+            {
+                listBoxMembres.Items.Add(string.Format("{0} — {1}", m.FullName, m.Role));
+            }
+        }
+
+        private void ChargerInvitable(int groupeId)
+        {
+            etudiantsInvitable = GroupeRepository.GetEtudiantsInvitable(groupeId, UserSession.CurrentUser.id);
+
+            comboBoxInviter.Items.Clear();
+
+            if (etudiantsInvitable == null || etudiantsInvitable.Count == 0)
+            {
+                AfficherSectionInvitation(false);
+                return;
+            }
+
+            foreach (Etudiant e in etudiantsInvitable)
+            {
+                comboBoxInviter.Items.Add(e.fullName);
+            }
+
+            comboBoxInviter.SelectedIndex = 0;
+            AfficherSectionInvitation(true);
+        }
+
+        // Masque ou affiche la partie "Inviter un membre"
+        private void AfficherSectionInvitation(bool visible)
+        {
+            lblInviter.Visible = visible;
+            comboBoxInviter.Visible = visible;
+            parrotButtonInviter.Visible = visible;
+        }
+
+        #endregion
+
+        #region --- CRÉATION D'UN GROUPE ---
+
+        private void parrotButtonCreer_Click(object sender, EventArgs e)
+        {
+            string nom = bigTextBoxNom.Text.Trim();
+            string description = bigTextBoxDescription.Text.Trim();
+
+            if (string.IsNullOrEmpty(nom))
+            {
+                MessageBox.Show("Veuillez saisir un nom pour le groupe.", "Groupe", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            bool succes = GroupeRepository.CreerGroupe(UserSession.CurrentUser.id, nom, description);
+            if (!succes)
+            {
+                MessageBox.Show("Erreur lors de la création du groupe.", "Groupe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            MessageBox.Show("Le groupe « " + nom + " » a été créé.", "Groupe", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            bigTextBoxNom.Text = string.Empty;
+            bigTextBoxDescription.Text = string.Empty;
+
+            // Recharger la liste puis sélectionner le groupe qui vient d'être créé
+            List<Groupe>? liste = GroupeRepository.GetAllGroupes(UserSession.CurrentUser.id);
+            int idCree = TrouverDernierGroupeCree(liste, nom);
+            ChargerListeGroupes(liste, idCree);
+        }
+
+        // Cherche le groupe le plus récent portant ce nom et appartenant à l'utilisateur courant
+        private static int TrouverDernierGroupeCree(List<Groupe>? liste, string nom)
+        {
+            int id = -1;
+            if (liste == null) return id;
+
+            foreach (Groupe g in liste)
+            {
+                if (g.Nom == nom && g.CreateurId == UserSession.CurrentUser.id && g.GroupeId > id)
+                {
+                    id = g.GroupeId;
+                }
+            }
+            return id;
+        }
+
+        #endregion
+
+        #region --- INVITATION DE MEMBRES ---
+
+        private void parrotButtonInviter_Click(object sender, EventArgs e)
+        {
+            if (groupeSelectionne == null || etudiantsInvitable == null || comboBoxInviter.SelectedIndex < 0)
+                return;
+
+            Etudiant etudiant = etudiantsInvitable[comboBoxInviter.SelectedIndex];
+
+            bool succes = GroupeRepository.InviterMembre(groupeSelectionne.GroupeId, etudiant.id);
+            if (!succes)
+            {
+                MessageBox.Show("Erreur lors de l'invitation.", "Groupe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            MessageBox.Show(etudiant.fullName + " a été invité dans le groupe.", "Groupe", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Rafraîchit la liste des groupes, les membres et les personnes invitable
+            ChargerGroupes();
+        }
+
+        #endregion
     }
 }
