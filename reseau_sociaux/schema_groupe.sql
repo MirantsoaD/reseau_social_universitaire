@@ -16,3 +16,11 @@ CREATE TABLE IF NOT EXISTS groupe_membre (
     date_ajout TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     PRIMARY KEY (groupe_id, etudiant_id)
 );
+
+CREATE TABLE IF NOT EXISTS groupe_message (
+    message_id SERIAL PRIMARY KEY,
+    groupe_id INTEGER NOT NULL REFERENCES groupe(groupe_id) ON DELETE CASCADE,
+    etudiant_id INTEGER NOT NULL REFERENCES etudiant(id) ON DELETE CASCADE,
+    content TEXT NOT NULL DEFAULT '',
+    time_sent TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);

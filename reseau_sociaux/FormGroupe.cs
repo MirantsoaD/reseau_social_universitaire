@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace reseau_sociaux
@@ -111,6 +112,8 @@ namespace reseau_sociaux
                 etudiantsInvitable = null;
                 comboBoxInviter.Items.Clear();
                 AfficherSectionInvitation(false);
+                flowLayoutPanelMessages.Controls.Clear();
+                AfficherComposer(false);
                 return;
             }
 
@@ -133,6 +136,8 @@ namespace reseau_sociaux
 
             ChargerMembres(g.GroupeId);
             ChargerInvitable(g.GroupeId);
+            ChargerMessagesGroupe(g.GroupeId);
+            AfficherComposer(!string.IsNullOrEmpty(g.RoleMoi));
         }
 
         private void ChargerMembres(int groupeId)
@@ -172,9 +177,79 @@ namespace reseau_sociaux
         // Masque ou affiche la partie "Inviter un membre"
         private void AfficherSectionInvitation(bool visible)
         {
-            lblInviter.Visible = visible;
-            comboBoxInviter.Visible = visible;
-            parrotButtonInviter.Visible = visible;
+            plInviterRow.Visible = visible;
+        }
+
+        #endregion
+
+        #region --- DISCUSSION DE GROUPE ---
+
+        // Affiche les messages du groupe dans la discussion
+        private void ChargerMessagesGroupe(int groupeId)
+        {
+            flowLayoutPanelMessages.Controls.Clear();
+
+            List<GroupeMessage>? messages = GroupeRepository.GetMessagesGroupe(groupeId);
+            if (messages == null || messages.Count == 0) return;
+
+            foreach (GroupeMessage msg in messages)
+            {
+                GroupMessageBubbleControl bulle = new GroupMessageBubbleControl();
+                bulle.SetMessage(msg, UserSession.CurrentUser.id);
+
+                // Panneau conteneur pour aligner la bulle à gauche ou à droite
+                Panel conteneur = new Panel();
+                conteneur.Width = flowLayoutPanelMessages.ClientSize.Width - 20;
+                conteneur.Height = bulle.Height + 6;
+                conteneur.BackColor = Color.Transparent;
+
+                bool isMe = (msg.EtudiantId == UserSession.CurrentUser.id);
+
+                if (isMe)
+                {
+                    bulle.Location = new Point(conteneur.Width - bulle.Width - 5, 3);
+                    bulle.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                }
+                else
+                {
+                    bulle.Location = new Point(5, 3);
+                    bulle.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                }
+
+                conteneur.Controls.Add(bulle);
+                flowLayoutPanelMessages.Controls.Add(conteneur);
+            }
+
+            // Faire défiler jusqu'au dernier message
+            if (flowLayoutPanelMessages.Controls.Count > 0)
+            {
+                flowLayoutPanelMessages.ScrollControlIntoView(
+                    flowLayoutPanelMessages.Controls[flowLayoutPanelMessages.Controls.Count - 1]);
+            }
+        }
+
+        // Seuls les membres du groupe peuvent écrire dans la discussion
+        private void AfficherComposer(bool visible)
+        {
+            plComposer.Visible = visible;
+        }
+
+        private void parrotButtonEnvoyer_Click(object sender, EventArgs e)
+        {
+            if (groupeSelectionne == null) return;
+
+            string contenu = bigTextBoxMessage.Text.Trim();
+            if (string.IsNullOrEmpty(contenu)) return;
+
+            bool succes = GroupeRepository.EnvoyerMessageGroupe(groupeSelectionne.GroupeId, UserSession.CurrentUser.id, contenu);
+            if (!succes)
+            {
+                MessageBox.Show("Erreur lors de l'envoi du message.", "Groupe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            bigTextBoxMessage.Text = string.Empty;
+            ChargerMessagesGroupe(groupeSelectionne.GroupeId);
         }
 
         #endregion

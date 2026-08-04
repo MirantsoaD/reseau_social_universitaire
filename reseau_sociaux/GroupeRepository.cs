@@ -238,5 +238,90 @@ namespace reseau_sociaux
 
             return etudiants;
         }
+
+        // Envoie un message texte dans un groupe
+        public static bool EnvoyerMessageGroupe(int groupeId, int etudiantId, string contenu)
+        {
+            if (string.IsNullOrWhiteSpace(contenu)) { return false; }
+
+            using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"INSERT INTO groupe_message (groupe_id, etudiant_id, content) 
+                                    VALUES (@groupeId, @etudiantId, @contenu);";
+
+                    using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@groupeId", groupeId);
+                        cmd.Parameters.AddWithValue("@etudiantId", etudiantId);
+                        cmd.Parameters.AddWithValue("@contenu", contenu);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors de l'envoi du message : " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
+        // Recupere tous les messages d'un groupe (du plus ancien au plus recent)
+        public static List<GroupeMessage> GetMessagesGroupe(int groupeId)
+        {
+            List<GroupeMessage> messages = new List<GroupeMessage>();
+
+            using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"SELECT 
+                                        gm.message_id,
+                                        gm.groupe_id,
+                                        gm.etudiant_id,
+                                        gm.content,
+                                        gm.time_sent,
+                                        e.fullname
+                                    FROM groupe_message gm
+                                    JOIN etudiant e ON gm.etudiant_id = e.id
+                                    WHERE gm.groupe_id = @groupeId
+                                    ORDER BY gm.time_sent ASC;";
+
+                    using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@groupeId", groupeId);
+
+                        using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                GroupeMessage message = new GroupeMessage
+                                {
+                                    MessageId = Convert.ToInt32(reader["message_id"]),
+                                    GroupeId = Convert.ToInt32(reader["groupe_id"]),
+                                    EtudiantId = Convert.ToInt32(reader["etudiant_id"]),
+                                    FullName = reader["fullname"].ToString() ?? "",
+                                    Content = reader["content"] != DBNull.Value ? reader["content"].ToString() ?? "" : "",
+                                    TimeSent = Convert.ToDateTime(reader["time_sent"])
+                                };
+
+                                messages.Add(message);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors de la lecture des messages : " + ex.Message);
+                }
+            }
+
+            return messages;
+        }
     }
 }

@@ -40,13 +40,25 @@
             lblCreateur = new Label();
             lblMembreCount = new Label();
             lblMonRole = new Label();
-            lblMembres = new Label();
-            listBoxMembres = new ListBox();
+            tabControlGroupe = new TabControl();
+            tabMembres = new TabPage();
+            plInviterRow = new Panel();
             lblInviter = new Label();
             comboBoxInviter = new ComboBox();
             parrotButtonInviter = new ReaLTaiizor.Controls.ParrotButton();
+            listBoxMembres = new ListBox();
+            tabDiscussion = new TabPage();
+            flowLayoutPanelMessages = new FlowLayoutPanel();
+            plComposer = new Panel();
+            bigTextBoxMessage = new ReaLTaiizor.Controls.BigTextBox();
+            parrotButtonEnvoyer = new ReaLTaiizor.Controls.ParrotButton();
             plLeft.SuspendLayout();
             plRight.SuspendLayout();
+            tabControlGroupe.SuspendLayout();
+            tabMembres.SuspendLayout();
+            plInviterRow.SuspendLayout();
+            tabDiscussion.SuspendLayout();
+            plComposer.SuspendLayout();
             SuspendLayout();
             // 
             // plLeft
@@ -158,15 +170,11 @@
             // plRight
             // 
             plRight.BackColor = Color.White;
-            plRight.Controls.Add(lblGroupeNom);
-            plRight.Controls.Add(lblCreateur);
-            plRight.Controls.Add(lblMembreCount);
+            plRight.Controls.Add(tabControlGroupe);
             plRight.Controls.Add(lblMonRole);
-            plRight.Controls.Add(lblMembres);
-            plRight.Controls.Add(listBoxMembres);
-            plRight.Controls.Add(lblInviter);
-            plRight.Controls.Add(comboBoxInviter);
-            plRight.Controls.Add(parrotButtonInviter);
+            plRight.Controls.Add(lblMembreCount);
+            plRight.Controls.Add(lblCreateur);
+            plRight.Controls.Add(lblGroupeNom);
             plRight.Location = new Point(340, 12);
             plRight.Name = "plRight";
             plRight.Size = new Size(548, 576);
@@ -218,50 +226,60 @@
             lblMonRole.Text = "Votre rôle : ...";
             lblMonRole.Visible = false;
             // 
-            // lblMembres
+            // tabControlGroupe
             // 
-            lblMembres.AutoSize = true;
-            lblMembres.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblMembres.ForeColor = Color.FromArgb(64, 64, 64);
-            lblMembres.Location = new Point(16, 136);
-            lblMembres.Name = "lblMembres";
-            lblMembres.Size = new Size(83, 25);
-            lblMembres.TabIndex = 4;
-            lblMembres.Text = "Membres";
+            tabControlGroupe.Controls.Add(tabMembres);
+            tabControlGroupe.Controls.Add(tabDiscussion);
+            tabControlGroupe.Location = new Point(16, 140);
+            tabControlGroupe.Name = "tabControlGroupe";
+            tabControlGroupe.SelectedIndex = 0;
+            tabControlGroupe.Size = new Size(516, 420);
+            tabControlGroupe.TabIndex = 4;
             // 
-            // listBoxMembres
+            // tabMembres
             // 
-            listBoxMembres.BorderStyle = BorderStyle.FixedSingle;
-            listBoxMembres.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            listBoxMembres.IntegralHeight = false;
-            listBoxMembres.ItemHeight = 22;
-            listBoxMembres.Location = new Point(16, 166);
-            listBoxMembres.Name = "listBoxMembres";
-            listBoxMembres.Size = new Size(516, 296);
-            listBoxMembres.TabIndex = 5;
+            tabMembres.Controls.Add(listBoxMembres);
+            tabMembres.Controls.Add(plInviterRow);
+            tabMembres.Location = new Point(4, 29);
+            tabMembres.Name = "tabMembres";
+            tabMembres.Padding = new Padding(6);
+            tabMembres.Size = new Size(508, 387);
+            tabMembres.TabIndex = 0;
+            tabMembres.Text = "Membres";
+            tabMembres.UseVisualStyleBackColor = true;
+            // 
+            // plInviterRow
+            // 
+            plInviterRow.Controls.Add(parrotButtonInviter);
+            plInviterRow.Controls.Add(comboBoxInviter);
+            plInviterRow.Controls.Add(lblInviter);
+            plInviterRow.Dock = DockStyle.Bottom;
+            plInviterRow.Location = new Point(6, 293);
+            plInviterRow.Name = "plInviterRow";
+            plInviterRow.Size = new Size(496, 88);
+            plInviterRow.TabIndex = 0;
+            plInviterRow.Visible = false;
             // 
             // lblInviter
             // 
             lblInviter.AutoSize = true;
             lblInviter.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblInviter.ForeColor = Color.FromArgb(64, 64, 64);
-            lblInviter.Location = new Point(16, 476);
+            lblInviter.Location = new Point(4, 2);
             lblInviter.Name = "lblInviter";
             lblInviter.Size = new Size(158, 25);
-            lblInviter.TabIndex = 6;
+            lblInviter.TabIndex = 0;
             lblInviter.Text = "Inviter un membre";
-            lblInviter.Visible = false;
             // 
             // comboBoxInviter
             // 
             comboBoxInviter.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxInviter.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBoxInviter.FormattingEnabled = true;
-            comboBoxInviter.Location = new Point(16, 508);
+            comboBoxInviter.Location = new Point(4, 32);
             comboBoxInviter.Name = "comboBoxInviter";
             comboBoxInviter.Size = new Size(356, 29);
-            comboBoxInviter.TabIndex = 7;
-            comboBoxInviter.Visible = false;
+            comboBoxInviter.TabIndex = 1;
             // 
             // parrotButtonInviter
             // 
@@ -277,16 +295,103 @@
             parrotButtonInviter.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
             parrotButtonInviter.HoverTextColor = Color.DodgerBlue;
             parrotButtonInviter.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
-            parrotButtonInviter.Location = new Point(380, 506);
+            parrotButtonInviter.Location = new Point(368, 30);
             parrotButtonInviter.Name = "parrotButtonInviter";
             parrotButtonInviter.Size = new Size(120, 36);
             parrotButtonInviter.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            parrotButtonInviter.TabIndex = 8;
+            parrotButtonInviter.TabIndex = 2;
             parrotButtonInviter.TextColor = Color.FromArgb(64, 64, 64);
             parrotButtonInviter.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             parrotButtonInviter.Vertical_Alignment = StringAlignment.Center;
-            parrotButtonInviter.Visible = false;
             parrotButtonInviter.Click += parrotButtonInviter_Click;
+            // 
+            // listBoxMembres
+            // 
+            listBoxMembres.BorderStyle = BorderStyle.FixedSingle;
+            listBoxMembres.Dock = DockStyle.Fill;
+            listBoxMembres.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            listBoxMembres.IntegralHeight = false;
+            listBoxMembres.ItemHeight = 22;
+            listBoxMembres.Location = new Point(6, 6);
+            listBoxMembres.Name = "listBoxMembres";
+            listBoxMembres.Size = new Size(496, 281);
+            listBoxMembres.TabIndex = 1;
+            // 
+            // tabDiscussion
+            // 
+            tabDiscussion.Controls.Add(flowLayoutPanelMessages);
+            tabDiscussion.Controls.Add(plComposer);
+            tabDiscussion.Location = new Point(4, 29);
+            tabDiscussion.Name = "tabDiscussion";
+            tabDiscussion.Padding = new Padding(6);
+            tabDiscussion.Size = new Size(508, 387);
+            tabDiscussion.TabIndex = 1;
+            tabDiscussion.Text = "Discussion";
+            tabDiscussion.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanelMessages
+            // 
+            flowLayoutPanelMessages.AutoScroll = true;
+            flowLayoutPanelMessages.BackColor = Color.White;
+            flowLayoutPanelMessages.Dock = DockStyle.Fill;
+            flowLayoutPanelMessages.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanelMessages.Location = new Point(6, 6);
+            flowLayoutPanelMessages.Name = "flowLayoutPanelMessages";
+            flowLayoutPanelMessages.Size = new Size(496, 309);
+            flowLayoutPanelMessages.TabIndex = 0;
+            flowLayoutPanelMessages.WrapContents = false;
+            // 
+            // plComposer
+            // 
+            plComposer.Controls.Add(parrotButtonEnvoyer);
+            plComposer.Controls.Add(bigTextBoxMessage);
+            plComposer.Dock = DockStyle.Bottom;
+            plComposer.Location = new Point(6, 315);
+            plComposer.Name = "plComposer";
+            plComposer.Size = new Size(496, 66);
+            plComposer.TabIndex = 1;
+            plComposer.Visible = false;
+            // 
+            // bigTextBoxMessage
+            // 
+            bigTextBoxMessage.BackColor = Color.White;
+            bigTextBoxMessage.Font = new Font("Tahoma", 11F);
+            bigTextBoxMessage.ForeColor = Color.DimGray;
+            bigTextBoxMessage.Image = null;
+            bigTextBoxMessage.Location = new Point(4, 10);
+            bigTextBoxMessage.MaxLength = 2000;
+            bigTextBoxMessage.Multiline = false;
+            bigTextBoxMessage.Name = "bigTextBoxMessage";
+            bigTextBoxMessage.PlaceholderText = "Votre message...";
+            bigTextBoxMessage.ReadOnly = false;
+            bigTextBoxMessage.Size = new Size(368, 46);
+            bigTextBoxMessage.TabIndex = 0;
+            bigTextBoxMessage.TextAlignment = HorizontalAlignment.Left;
+            bigTextBoxMessage.UseSystemPasswordChar = false;
+            // 
+            // parrotButtonEnvoyer
+            // 
+            parrotButtonEnvoyer.BackgroundColor = Color.FromArgb(255, 255, 255);
+            parrotButtonEnvoyer.ButtonImage = null;
+            parrotButtonEnvoyer.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
+            parrotButtonEnvoyer.ButtonText = "Envoyer";
+            parrotButtonEnvoyer.ClickBackColor = Color.FromArgb(195, 195, 195);
+            parrotButtonEnvoyer.ClickTextColor = Color.DodgerBlue;
+            parrotButtonEnvoyer.CornerRadius = 5;
+            parrotButtonEnvoyer.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            parrotButtonEnvoyer.Horizontal_Alignment = StringAlignment.Center;
+            parrotButtonEnvoyer.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
+            parrotButtonEnvoyer.HoverTextColor = Color.DodgerBlue;
+            parrotButtonEnvoyer.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
+            parrotButtonEnvoyer.Location = new Point(380, 14);
+            parrotButtonEnvoyer.Name = "parrotButtonEnvoyer";
+            parrotButtonEnvoyer.Size = new Size(112, 38);
+            parrotButtonEnvoyer.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            parrotButtonEnvoyer.TabIndex = 1;
+            parrotButtonEnvoyer.TextColor = Color.FromArgb(64, 64, 64);
+            parrotButtonEnvoyer.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            parrotButtonEnvoyer.Vertical_Alignment = StringAlignment.Center;
+            parrotButtonEnvoyer.Click += parrotButtonEnvoyer_Click;
             // 
             // FormGroupe
             // 
@@ -307,6 +412,13 @@
             plLeft.PerformLayout();
             plRight.ResumeLayout(false);
             plRight.PerformLayout();
+            tabControlGroupe.ResumeLayout(false);
+            tabMembres.ResumeLayout(false);
+            plInviterRow.ResumeLayout(false);
+            plInviterRow.PerformLayout();
+            tabDiscussion.ResumeLayout(false);
+            plComposer.ResumeLayout(false);
+            plComposer.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -325,10 +437,17 @@
         private Label lblCreateur;
         private Label lblMembreCount;
         private Label lblMonRole;
-        private Label lblMembres;
-        private ListBox listBoxMembres;
+        private TabControl tabControlGroupe;
+        private TabPage tabMembres;
+        private Panel plInviterRow;
         private Label lblInviter;
         private ComboBox comboBoxInviter;
         private ReaLTaiizor.Controls.ParrotButton parrotButtonInviter;
+        private ListBox listBoxMembres;
+        private TabPage tabDiscussion;
+        private FlowLayoutPanel flowLayoutPanelMessages;
+        private Panel plComposer;
+        private ReaLTaiizor.Controls.BigTextBox bigTextBoxMessage;
+        private ReaLTaiizor.Controls.ParrotButton parrotButtonEnvoyer;
     }
 }
