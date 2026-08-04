@@ -46,6 +46,10 @@
             lblInviter = new Label();
             comboBoxInviter = new ComboBox();
             parrotButtonInviter = new ReaLTaiizor.Controls.ParrotButton();
+            plActionsMembres = new Panel();
+            parrotButtonQuitter = new ReaLTaiizor.Controls.ParrotButton();
+            parrotButtonRetirer = new ReaLTaiizor.Controls.ParrotButton();
+            parrotButtonSupprimer = new ReaLTaiizor.Controls.ParrotButton();
             listBoxMembres = new ListBox();
             tabDiscussion = new TabPage();
             flowLayoutPanelMessages = new FlowLayoutPanel();
@@ -57,6 +61,7 @@
             tabControlGroupe.SuspendLayout();
             tabMembres.SuspendLayout();
             plInviterRow.SuspendLayout();
+            plActionsMembres.SuspendLayout();
             tabDiscussion.SuspendLayout();
             plComposer.SuspendLayout();
             SuspendLayout();
@@ -239,6 +244,7 @@
             // tabMembres
             // 
             tabMembres.Controls.Add(listBoxMembres);
+            tabMembres.Controls.Add(plActionsMembres);
             tabMembres.Controls.Add(plInviterRow);
             tabMembres.Location = new Point(4, 29);
             tabMembres.Name = "tabMembres";
@@ -304,6 +310,92 @@
             parrotButtonInviter.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             parrotButtonInviter.Vertical_Alignment = StringAlignment.Center;
             parrotButtonInviter.Click += parrotButtonInviter_Click;
+            // 
+            // plActionsMembres
+            // 
+            plActionsMembres.Controls.Add(parrotButtonSupprimer);
+            plActionsMembres.Controls.Add(parrotButtonRetirer);
+            plActionsMembres.Controls.Add(parrotButtonQuitter);
+            plActionsMembres.Dock = DockStyle.Bottom;
+            plActionsMembres.Location = new Point(6, 233);
+            plActionsMembres.Name = "plActionsMembres";
+            plActionsMembres.Size = new Size(496, 48);
+            plActionsMembres.TabIndex = 1;
+            // 
+            // parrotButtonQuitter
+            // 
+            parrotButtonQuitter.BackgroundColor = Color.FromArgb(255, 255, 255);
+            parrotButtonQuitter.ButtonImage = null;
+            parrotButtonQuitter.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
+            parrotButtonQuitter.ButtonText = "Quitter le groupe";
+            parrotButtonQuitter.ClickBackColor = Color.FromArgb(195, 195, 195);
+            parrotButtonQuitter.ClickTextColor = Color.Red;
+            parrotButtonQuitter.CornerRadius = 5;
+            parrotButtonQuitter.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            parrotButtonQuitter.Horizontal_Alignment = StringAlignment.Center;
+            parrotButtonQuitter.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
+            parrotButtonQuitter.HoverTextColor = Color.Red;
+            parrotButtonQuitter.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
+            parrotButtonQuitter.Location = new Point(4, 6);
+            parrotButtonQuitter.Name = "parrotButtonQuitter";
+            parrotButtonQuitter.Size = new Size(145, 36);
+            parrotButtonQuitter.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            parrotButtonQuitter.TabIndex = 0;
+            parrotButtonQuitter.TextColor = Color.FromArgb(64, 64, 64);
+            parrotButtonQuitter.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            parrotButtonQuitter.Vertical_Alignment = StringAlignment.Center;
+            parrotButtonQuitter.Visible = false;
+            parrotButtonQuitter.Click += parrotButtonQuitter_Click;
+            // 
+            // parrotButtonRetirer
+            // 
+            parrotButtonRetirer.BackgroundColor = Color.FromArgb(255, 255, 255);
+            parrotButtonRetirer.ButtonImage = null;
+            parrotButtonRetirer.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
+            parrotButtonRetirer.ButtonText = "Retirer le membre";
+            parrotButtonRetirer.ClickBackColor = Color.FromArgb(195, 195, 195);
+            parrotButtonRetirer.ClickTextColor = Color.Red;
+            parrotButtonRetirer.CornerRadius = 5;
+            parrotButtonRetirer.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            parrotButtonRetirer.Horizontal_Alignment = StringAlignment.Center;
+            parrotButtonRetirer.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
+            parrotButtonRetirer.HoverTextColor = Color.Red;
+            parrotButtonRetirer.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
+            parrotButtonRetirer.Location = new Point(155, 6);
+            parrotButtonRetirer.Name = "parrotButtonRetirer";
+            parrotButtonRetirer.Size = new Size(155, 36);
+            parrotButtonRetirer.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            parrotButtonRetirer.TabIndex = 1;
+            parrotButtonRetirer.TextColor = Color.FromArgb(64, 64, 64);
+            parrotButtonRetirer.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            parrotButtonRetirer.Vertical_Alignment = StringAlignment.Center;
+            parrotButtonRetirer.Visible = false;
+            parrotButtonRetirer.Click += parrotButtonRetirer_Click;
+            // 
+            // parrotButtonSupprimer
+            // 
+            parrotButtonSupprimer.BackgroundColor = Color.FromArgb(255, 255, 255);
+            parrotButtonSupprimer.ButtonImage = null;
+            parrotButtonSupprimer.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
+            parrotButtonSupprimer.ButtonText = "Supprimer le groupe";
+            parrotButtonSupprimer.ClickBackColor = Color.FromArgb(195, 195, 195);
+            parrotButtonSupprimer.ClickTextColor = Color.Red;
+            parrotButtonSupprimer.CornerRadius = 5;
+            parrotButtonSupprimer.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            parrotButtonSupprimer.Horizontal_Alignment = StringAlignment.Center;
+            parrotButtonSupprimer.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
+            parrotButtonSupprimer.HoverTextColor = Color.Red;
+            parrotButtonSupprimer.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
+            parrotButtonSupprimer.Location = new Point(316, 6);
+            parrotButtonSupprimer.Name = "parrotButtonSupprimer";
+            parrotButtonSupprimer.Size = new Size(176, 36);
+            parrotButtonSupprimer.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            parrotButtonSupprimer.TabIndex = 2;
+            parrotButtonSupprimer.TextColor = Color.FromArgb(64, 64, 64);
+            parrotButtonSupprimer.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            parrotButtonSupprimer.Vertical_Alignment = StringAlignment.Center;
+            parrotButtonSupprimer.Visible = false;
+            parrotButtonSupprimer.Click += parrotButtonSupprimer_Click;
             // 
             // listBoxMembres
             // 
@@ -414,6 +506,7 @@
             plRight.PerformLayout();
             tabControlGroupe.ResumeLayout(false);
             tabMembres.ResumeLayout(false);
+            plActionsMembres.ResumeLayout(false);
             plInviterRow.ResumeLayout(false);
             plInviterRow.PerformLayout();
             tabDiscussion.ResumeLayout(false);
@@ -443,6 +536,10 @@
         private Label lblInviter;
         private ComboBox comboBoxInviter;
         private ReaLTaiizor.Controls.ParrotButton parrotButtonInviter;
+        private Panel plActionsMembres;
+        private ReaLTaiizor.Controls.ParrotButton parrotButtonQuitter;
+        private ReaLTaiizor.Controls.ParrotButton parrotButtonRetirer;
+        private ReaLTaiizor.Controls.ParrotButton parrotButtonSupprimer;
         private ListBox listBoxMembres;
         private TabPage tabDiscussion;
         private FlowLayoutPanel flowLayoutPanelMessages;

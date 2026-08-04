@@ -52,8 +52,8 @@ namespace reseau_sociaux
             }
         }
 
-        // Recupere tous les groupes avec le nom du createur, le nombre de membres
-        // et le role de l'utilisateur courant (null s'il n'en est pas membre)
+        // Recupere tous les groupes dont l'utilisateur courant est membre,
+        // avec le nom du createur, le nombre de membres et le role de l'utilisateur courant
         public static List<Groupe> GetAllGroupes(int currentUserId)
         {
             List<Groupe> groupes = new List<Groupe>();
@@ -74,7 +74,7 @@ namespace reseau_sociaux
                                         gm_me.role AS role_moi
                                     FROM groupe g
                                     JOIN etudiant e ON g.createur_id = e.id
-                                    LEFT JOIN groupe_membre gm_me ON gm_me.groupe_id = g.groupe_id AND gm_me.etudiant_id = @currentUserId
+                                    JOIN groupe_membre gm_me ON gm_me.groupe_id = g.groupe_id AND gm_me.etudiant_id = @currentUserId
                                     ORDER BY g.date_creation DESC;";
 
                     using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
@@ -188,6 +188,86 @@ namespace reseau_sociaux
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erreur lors de l'invitation du membre : " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
+        // Un membre quitte le groupe
+        public static bool QuitterGroupe(int groupeId, int etudiantId)
+        {
+            using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"DELETE FROM groupe_membre WHERE groupe_id = @groupeId AND etudiant_id = @etudiantId;";
+
+                    using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@groupeId", groupeId);
+                        cmd.Parameters.AddWithValue("@etudiantId", etudiantId);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors du depart du groupe : " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
+        // L'administrateur retire un membre du groupe
+        public static bool RetirerMembre(int groupeId, int etudiantId)
+        {
+            using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"DELETE FROM groupe_membre WHERE groupe_id = @groupeId AND etudiant_id = @etudiantId;";
+
+                    using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@groupeId", groupeId);
+                        cmd.Parameters.AddWithValue("@etudiantId", etudiantId);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors du retrait du membre : " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
+        // L'administrateur (createur) supprime le groupe. Les membres et les messages
+        // sont supprimes automatiquement par ON DELETE CASCADE.
+        public static bool SupprimerGroupe(int groupeId, int createurId)
+        {
+            using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"DELETE FROM groupe WHERE groupe_id = @groupeId AND createur_id = @createurId;";
+
+                    using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@groupeId", groupeId);
+                        cmd.Parameters.AddWithValue("@createurId", createurId);
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors de la suppression du groupe : " + ex.Message);
                     return false;
                 }
             }

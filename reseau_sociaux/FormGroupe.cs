@@ -16,6 +16,9 @@ namespace reseau_sociaux
         // Étudiants encore invitable dans le groupe sélectionné
         private List<Etudiant>? etudiantsInvitable;
 
+        // Membres du groupe sélectionné (même ordre que la ListBox)
+        private List<GroupeMembre>? membresCourants;
+
         public FormGroupe()
         {
             InitializeComponent();
@@ -109,11 +112,13 @@ namespace reseau_sociaux
                 lblMembreCount.Text = string.Empty;
                 lblMonRole.Visible = false;
                 listBoxMembres.Items.Clear();
+                membresCourants = null;
                 etudiantsInvitable = null;
                 comboBoxInviter.Items.Clear();
                 AfficherSectionInvitation(false);
                 flowLayoutPanelMessages.Controls.Clear();
                 AfficherComposer(false);
+                AfficherActionsMembre(false, false);
                 return;
             }
 
@@ -134,6 +139,11 @@ namespace reseau_sociaux
                 lblMonRole.Visible = true;
             }
 
+            // Boutons de gestion selon le rôle :
+            //  - un simple membre peut quitter le groupe
+            //  - un administrateur peut retirer un membre ou supprimer le groupe
+            AfficherActionsMembre(g.RoleMoi == "Administrateur", g.RoleMoi == "Membre");
+
             ChargerMembres(g.GroupeId);
             ChargerInvitable(g.GroupeId);
             ChargerMessagesGroupe(g.GroupeId);
@@ -144,10 +154,11 @@ namespace reseau_sociaux
         {
             listBoxMembres.Items.Clear();
 
-            List<GroupeMembre>? membres = GroupeRepository.GetMembres(groupeId);
-            if (membres == null) return;
+            // Conserve les objets des membres dans le même ordre que la ListBox
+            membresCourants = GroupeRepository.GetMembres(groupeId);
+            if (membresCourants == null) return;
 
-            foreach (GroupeMembre m in membres)
+            foreach (GroupeMembre m in membresCourants)
             {
                 listBoxMembres.Items.Add(string.Format("{0} — {1}", m.FullName, m.Role));
             }
@@ -322,6 +333,95 @@ namespace reseau_sociaux
             MessageBox.Show(etudiant.fullName + " a été invité dans le groupe.", "Groupe", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             // Rafraîchit la liste des groupes, les membres et les personnes invitable
+            ChargerGroupes();
+        }
+
+        #endregion
+
+        #region --- GESTION DU GROUPE (QUITTER / RETIRER / SUPPRIMER) ---
+
+        // Affiche ou masque les boutons de gestion du groupe selon le rôle
+        private void AfficherActionsMembre(bool estAdministrateur, bool estMembre)
+        {
+            parrotButtonQuitter.Visible = estMembre;
+            parrotButtonRetirer.Visible = estAdministrateur;
+            parrotButtonSupprimer.Visible = estAdministrateur;
+        }
+
+        private void parrotButtonQuitter_Click(object sender, EventArgs e)
+        {
+            if (groupeSelectionne == null) return;
+
+            DialogResult reponse = MessageBox.Show(
+                "Voulez-vous vraiment quitter le groupe « " + groupeSelectionne.Nom + " » ?",
+                "Quitter le groupe",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (reponse != DialogResult.Yes) return;
+
+            bool succes = GroupeRepository.QuitterGroupe(groupeSelectionne.GroupeId, UserSession.CurrentUser.id);
+            if (!succes)
+            {
+                MessageBox.Show("Erreur lors du départ du groupe.", "Groupe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Le groupe disparaît de la liste puisqu'on n'en est plus membre
+            ChargerGroupes();
+        }
+
+        private void parrotButtonRetirer_Click(object sender, EventArgs e)
+        {
+            if (groupeSelectionne == null) return;
+
+            if (listBoxMembres.SelectedIndex < 0 || membresCourants == null || listBoxMembres.SelectedIndex >= membresCourants.Count)
+            {
+                MessageBox.Show("Sélectionnez un membre.", "Groupe", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            GroupeMembre membre = membresCourants[listBoxMembres.SelectedIndex];
+
+            DialogResult reponse = MessageBox.Show(
+                "Voulez-vous vraiment retirer " + membre.FullName + " du groupe ?",
+                "Retirer le membre",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (reponse != DialogResult.Yes) return;
+
+            bool succes = GroupeRepository.RetirerMembre(groupeSelectionne.GroupeId, membre.EtudiantId);
+            if (!succes)
+            {
+                MessageBox.Show("Erreur lors du retrait du membre.", "Groupe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Rafraîchit la liste des membres, le nombre de membres et la discussion
+            ChargerGroupes();
+        }
+
+        private void parrotButtonSupprimer_Click(object sender, EventArgs e)
+        {
+            if (groupeSelectionne == null) return;
+
+            DialogResult reponse = MessageBox.Show(
+                "Voulez-vous vraiment supprimer le groupe « " + groupeSelectionne.Nom + " » ?\nCette action est définitive.",
+                "Supprimer le groupe",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (reponse != DialogResult.Yes) return;
+
+            bool succes = GroupeRepository.SupprimerGroupe(groupeSelectionne.GroupeId, UserSession.CurrentUser.id);
+            if (!succes)
+            {
+                MessageBox.Show("Erreur lors de la suppression du groupe.", "Groupe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Le groupe disparaît de la liste ; s'il n'en reste aucun, le détail s'efface
             ChargerGroupes();
         }
 
