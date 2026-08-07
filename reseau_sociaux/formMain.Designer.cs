@@ -310,6 +310,7 @@
             checkBoxUnhidePassword_profile.TabIndex = 9;
             checkBoxUnhidePassword_profile.Text = "Afficher";
             checkBoxUnhidePassword_profile.UseVisualStyleBackColor = true;
+            checkBoxUnhidePassword_profile.CheckStateChanged += checkBoxUnhidePassword_profile_CheckStateChanged;
             // 
             // txtConfirmationPassword_profile
             // 

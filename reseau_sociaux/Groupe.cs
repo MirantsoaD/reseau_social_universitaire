@@ -13,6 +13,6 @@ namespace reseau_sociaux
         public string CreateurNom { get; set; } = "";
         public DateTime DateCreation { get; set; }
         public int MembreCount { get; set; }
-        public string? RoleMoi { get; set; }   // role of current user in this group, null if not a member
+        public string? RoleMoi { get; set; } 
     }
 }

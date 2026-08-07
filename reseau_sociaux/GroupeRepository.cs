@@ -164,7 +164,7 @@ namespace reseau_sociaux
             return membres;
         }
 
-        // Invite un etudiant dans un groupe. Re-inviter est sans effet (ON CONFLICT DO NOTHING).
+        // Invite un etudiant dans un groupe. Re-inviter est sans effet
         public static bool InviterMembre(int groupeId, int etudiantId)
         {
             using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))

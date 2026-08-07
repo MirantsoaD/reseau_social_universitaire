@@ -10,7 +10,7 @@ namespace reseau_sociaux
         public int EtudiantId { get; set; }
         public string FullName { get; set; } = "";
         public byte[]? ProfileImage { get; set; }
-        public string Role { get; set; } = "Membre";   // "Administrateur" or "Membre"
+        public string Role { get; set; } = "Membre";
         public DateTime DateAjout { get; set; }
     }
 }

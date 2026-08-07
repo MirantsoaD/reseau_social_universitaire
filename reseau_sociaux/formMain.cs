@@ -464,6 +464,12 @@ namespace reseau_sociaux
                 }
             }
         }
+        private void checkBoxUnhidePassword_profile_CheckStateChanged(object sender, EventArgs e)
+        {
+            txtOldPassword_profile.PasswordChar = checkBoxUnhidePassword_profile.Checked ? '\0' : '*';
+            txtNewPassword_profile.PasswordChar = checkBoxUnhidePassword_profile.Checked ? '\0' : '*';
+            txtConfirmationPassword_profile.PasswordChar = checkBoxUnhidePassword_profile.Checked ? '\0' : '*';
+        }
 
         #endregion
 
@@ -513,5 +519,7 @@ namespace reseau_sociaux
         }
 
         #endregion
+
+       
     }
 }

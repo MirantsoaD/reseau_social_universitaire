@@ -35,39 +35,39 @@
             lblMesGroupes = new Label();
             listBoxGroupes = new ListBox();
             plRight = new Panel();
-            lblGroupeNom = new Label();
-            lblCreateur = new Label();
-            lblMembreCount = new Label();
-            lblMonRole = new Label();
             tabControlGroupe = new TabControl();
             tabMembres = new TabPage();
-            plInviterRow = new Panel();
-            lblInviter = new Label();
-            comboBoxInviter = new ComboBox();
-            parrotButtonInviter = new ReaLTaiizor.Controls.ParrotButton();
-            plActionsMembres = new Panel();
-            parrotButtonQuitter = new ReaLTaiizor.Controls.ParrotButton();
-            parrotButtonRetirer = new ReaLTaiizor.Controls.ParrotButton();
-            parrotButtonSupprimer = new ReaLTaiizor.Controls.ParrotButton();
             listBoxMembres = new ListBox();
+            plActionsMembres = new Panel();
+            parrotButtonSupprimer = new ReaLTaiizor.Controls.ParrotButton();
+            parrotButtonRetirer = new ReaLTaiizor.Controls.ParrotButton();
+            parrotButtonQuitter = new ReaLTaiizor.Controls.ParrotButton();
+            plInviterRow = new Panel();
+            parrotButtonInviter = new ReaLTaiizor.Controls.ParrotButton();
+            comboBoxInviter = new ComboBox();
+            lblInviter = new Label();
             tabDiscussion = new TabPage();
             flowLayoutPanelMessages = new FlowLayoutPanel();
             plComposer = new Panel();
-            bigTextBoxMessage = new ReaLTaiizor.Controls.BigTextBox();
             parrotButtonEnvoyer = new ReaLTaiizor.Controls.ParrotButton();
+            bigTextBoxMessage = new ReaLTaiizor.Controls.BigTextBox();
+            lblMonRole = new Label();
+            lblMembreCount = new Label();
+            lblCreateur = new Label();
+            lblGroupeNom = new Label();
             plLeft.SuspendLayout();
             plRight.SuspendLayout();
             tabControlGroupe.SuspendLayout();
             tabMembres.SuspendLayout();
-            plInviterRow.SuspendLayout();
             plActionsMembres.SuspendLayout();
+            plInviterRow.SuspendLayout();
             tabDiscussion.SuspendLayout();
             plComposer.SuspendLayout();
             SuspendLayout();
             // 
             // plLeft
             // 
-            plLeft.BackColor = Color.White;
+            plLeft.BackColor = Color.Gainsboro;
             plLeft.Controls.Add(lblSectionCreer);
             plLeft.Controls.Add(bigTextBoxNom);
             plLeft.Controls.Add(parrotButtonCreer);
@@ -81,11 +81,12 @@
             // lblSectionCreer
             // 
             lblSectionCreer.AutoSize = true;
+            lblSectionCreer.BorderStyle = BorderStyle.FixedSingle;
             lblSectionCreer.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblSectionCreer.ForeColor = Color.FromArgb(64, 64, 64);
-            lblSectionCreer.Location = new Point(16, 14);
+            lblSectionCreer.ForeColor = Color.Blue;
+            lblSectionCreer.Location = new Point(20, 14);
             lblSectionCreer.Name = "lblSectionCreer";
-            lblSectionCreer.Size = new Size(146, 28);
+            lblSectionCreer.Size = new Size(164, 30);
             lblSectionCreer.TabIndex = 0;
             lblSectionCreer.Text = "Créer un groupe";
             // 
@@ -95,7 +96,7 @@
             bigTextBoxNom.Font = new Font("Tahoma", 11F);
             bigTextBoxNom.ForeColor = Color.DimGray;
             bigTextBoxNom.Image = null;
-            bigTextBoxNom.Location = new Point(16, 50);
+            bigTextBoxNom.Location = new Point(20, 54);
             bigTextBoxNom.MaxLength = 100;
             bigTextBoxNom.Multiline = false;
             bigTextBoxNom.Name = "bigTextBoxNom";
@@ -108,24 +109,24 @@
             // 
             // parrotButtonCreer
             // 
-            parrotButtonCreer.BackgroundColor = Color.FromArgb(255, 255, 255);
+            parrotButtonCreer.BackgroundColor = Color.FromArgb(64, 64, 64);
             parrotButtonCreer.ButtonImage = null;
             parrotButtonCreer.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
             parrotButtonCreer.ButtonText = "Créer le groupe";
-            parrotButtonCreer.ClickBackColor = Color.FromArgb(195, 195, 195);
-            parrotButtonCreer.ClickTextColor = Color.DodgerBlue;
+            parrotButtonCreer.ClickBackColor = Color.FromArgb(224, 224, 224);
+            parrotButtonCreer.ClickTextColor = SystemColors.MenuHighlight;
             parrotButtonCreer.CornerRadius = 5;
             parrotButtonCreer.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             parrotButtonCreer.Horizontal_Alignment = StringAlignment.Center;
-            parrotButtonCreer.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
-            parrotButtonCreer.HoverTextColor = Color.DodgerBlue;
+            parrotButtonCreer.HoverBackgroundColor = Color.FromArgb(75, 80, 90);
+            parrotButtonCreer.HoverTextColor = Color.FromArgb(235, 235, 215);
             parrotButtonCreer.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
-            parrotButtonCreer.Location = new Point(16, 108);
+            parrotButtonCreer.Location = new Point(20, 108);
             parrotButtonCreer.Name = "parrotButtonCreer";
             parrotButtonCreer.Size = new Size(160, 36);
             parrotButtonCreer.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             parrotButtonCreer.TabIndex = 2;
-            parrotButtonCreer.TextColor = Color.FromArgb(64, 64, 64);
+            parrotButtonCreer.TextColor = Color.White;
             parrotButtonCreer.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             parrotButtonCreer.Vertical_Alignment = StringAlignment.Center;
             parrotButtonCreer.Click += parrotButtonCreer_Click;
@@ -135,19 +136,19 @@
             lblMesGroupes.AutoSize = true;
             lblMesGroupes.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblMesGroupes.ForeColor = Color.FromArgb(64, 64, 64);
-            lblMesGroupes.Location = new Point(16, 170);
+            lblMesGroupes.Location = new Point(20, 169);
             lblMesGroupes.Name = "lblMesGroupes";
-            lblMesGroupes.Size = new Size(106, 28);
+            lblMesGroupes.Size = new Size(133, 28);
             lblMesGroupes.TabIndex = 3;
             lblMesGroupes.Text = "Mes Groupes";
             // 
             // listBoxGroupes
             // 
+            listBoxGroupes.BackColor = Color.WhiteSmoke;
             listBoxGroupes.BorderStyle = BorderStyle.FixedSingle;
             listBoxGroupes.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             listBoxGroupes.IntegralHeight = false;
-            listBoxGroupes.ItemHeight = 22;
-            listBoxGroupes.Location = new Point(16, 206);
+            listBoxGroupes.Location = new Point(20, 200);
             listBoxGroupes.Name = "listBoxGroupes";
             listBoxGroupes.Size = new Size(284, 354);
             listBoxGroupes.TabIndex = 4;
@@ -155,7 +156,7 @@
             // 
             // plRight
             // 
-            plRight.BackColor = Color.White;
+            plRight.BackColor = Color.FromArgb(224, 224, 224);
             plRight.Controls.Add(tabControlGroupe);
             plRight.Controls.Add(lblMonRole);
             plRight.Controls.Add(lblMembreCount);
@@ -165,52 +166,6 @@
             plRight.Name = "plRight";
             plRight.Size = new Size(548, 576);
             plRight.TabIndex = 1;
-            // 
-            // lblGroupeNom
-            // 
-            lblGroupeNom.AutoEllipsis = true;
-            lblGroupeNom.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblGroupeNom.ForeColor = Color.FromArgb(30, 132, 73);
-            lblGroupeNom.Location = new Point(16, 14);
-            lblGroupeNom.Name = "lblGroupeNom";
-            lblGroupeNom.Size = new Size(516, 34);
-            lblGroupeNom.TabIndex = 0;
-            lblGroupeNom.Text = "Aucun groupe sélectionné";
-            lblGroupeNom.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // lblCreateur
-            // 
-            lblCreateur.AutoSize = true;
-            lblCreateur.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblCreateur.ForeColor = Color.FromArgb(64, 64, 64);
-            lblCreateur.Location = new Point(16, 54);
-            lblCreateur.Name = "lblCreateur";
-            lblCreateur.Size = new Size(100, 25);
-            lblCreateur.TabIndex = 1;
-            lblCreateur.Text = "Créé par ...";
-            // 
-            // lblMembreCount
-            // 
-            lblMembreCount.AutoSize = true;
-            lblMembreCount.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblMembreCount.ForeColor = Color.FromArgb(64, 64, 64);
-            lblMembreCount.Location = new Point(16, 80);
-            lblMembreCount.Name = "lblMembreCount";
-            lblMembreCount.Size = new Size(100, 25);
-            lblMembreCount.TabIndex = 2;
-            lblMembreCount.Text = "0 membre";
-            // 
-            // lblMonRole
-            // 
-            lblMonRole.AutoSize = true;
-            lblMonRole.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblMonRole.ForeColor = Color.DodgerBlue;
-            lblMonRole.Location = new Point(16, 106);
-            lblMonRole.Name = "lblMonRole";
-            lblMonRole.Size = new Size(100, 25);
-            lblMonRole.TabIndex = 3;
-            lblMonRole.Text = "Votre rôle : ...";
-            lblMonRole.Visible = false;
             // 
             // tabControlGroupe
             // 
@@ -235,62 +190,17 @@
             tabMembres.Text = "Membres";
             tabMembres.UseVisualStyleBackColor = true;
             // 
-            // plInviterRow
+            // listBoxMembres
             // 
-            plInviterRow.Controls.Add(parrotButtonInviter);
-            plInviterRow.Controls.Add(comboBoxInviter);
-            plInviterRow.Controls.Add(lblInviter);
-            plInviterRow.Dock = DockStyle.Bottom;
-            plInviterRow.Location = new Point(6, 293);
-            plInviterRow.Name = "plInviterRow";
-            plInviterRow.Size = new Size(496, 88);
-            plInviterRow.TabIndex = 0;
-            plInviterRow.Visible = false;
-            // 
-            // lblInviter
-            // 
-            lblInviter.AutoSize = true;
-            lblInviter.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblInviter.ForeColor = Color.FromArgb(64, 64, 64);
-            lblInviter.Location = new Point(4, 2);
-            lblInviter.Name = "lblInviter";
-            lblInviter.Size = new Size(158, 25);
-            lblInviter.TabIndex = 0;
-            lblInviter.Text = "Inviter un membre";
-            // 
-            // comboBoxInviter
-            // 
-            comboBoxInviter.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxInviter.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBoxInviter.FormattingEnabled = true;
-            comboBoxInviter.Location = new Point(4, 32);
-            comboBoxInviter.Name = "comboBoxInviter";
-            comboBoxInviter.Size = new Size(356, 29);
-            comboBoxInviter.TabIndex = 1;
-            // 
-            // parrotButtonInviter
-            // 
-            parrotButtonInviter.BackgroundColor = Color.FromArgb(255, 255, 255);
-            parrotButtonInviter.ButtonImage = null;
-            parrotButtonInviter.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
-            parrotButtonInviter.ButtonText = "Inviter";
-            parrotButtonInviter.ClickBackColor = Color.FromArgb(195, 195, 195);
-            parrotButtonInviter.ClickTextColor = Color.DodgerBlue;
-            parrotButtonInviter.CornerRadius = 5;
-            parrotButtonInviter.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            parrotButtonInviter.Horizontal_Alignment = StringAlignment.Center;
-            parrotButtonInviter.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
-            parrotButtonInviter.HoverTextColor = Color.DodgerBlue;
-            parrotButtonInviter.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
-            parrotButtonInviter.Location = new Point(368, 30);
-            parrotButtonInviter.Name = "parrotButtonInviter";
-            parrotButtonInviter.Size = new Size(120, 36);
-            parrotButtonInviter.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            parrotButtonInviter.TabIndex = 2;
-            parrotButtonInviter.TextColor = Color.FromArgb(64, 64, 64);
-            parrotButtonInviter.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            parrotButtonInviter.Vertical_Alignment = StringAlignment.Center;
-            parrotButtonInviter.Click += parrotButtonInviter_Click;
+            listBoxMembres.BackColor = SystemColors.Menu;
+            listBoxMembres.BorderStyle = BorderStyle.FixedSingle;
+            listBoxMembres.Dock = DockStyle.Fill;
+            listBoxMembres.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            listBoxMembres.IntegralHeight = false;
+            listBoxMembres.Location = new Point(6, 6);
+            listBoxMembres.Name = "listBoxMembres";
+            listBoxMembres.Size = new Size(496, 239);
+            listBoxMembres.TabIndex = 1;
             // 
             // plActionsMembres
             // 
@@ -298,64 +208,14 @@
             plActionsMembres.Controls.Add(parrotButtonRetirer);
             plActionsMembres.Controls.Add(parrotButtonQuitter);
             plActionsMembres.Dock = DockStyle.Bottom;
-            plActionsMembres.Location = new Point(6, 233);
+            plActionsMembres.Location = new Point(6, 245);
             plActionsMembres.Name = "plActionsMembres";
             plActionsMembres.Size = new Size(496, 48);
             plActionsMembres.TabIndex = 1;
             // 
-            // parrotButtonQuitter
-            // 
-            parrotButtonQuitter.BackgroundColor = Color.FromArgb(255, 255, 255);
-            parrotButtonQuitter.ButtonImage = null;
-            parrotButtonQuitter.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
-            parrotButtonQuitter.ButtonText = "Quitter le groupe";
-            parrotButtonQuitter.ClickBackColor = Color.FromArgb(195, 195, 195);
-            parrotButtonQuitter.ClickTextColor = Color.Red;
-            parrotButtonQuitter.CornerRadius = 5;
-            parrotButtonQuitter.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            parrotButtonQuitter.Horizontal_Alignment = StringAlignment.Center;
-            parrotButtonQuitter.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
-            parrotButtonQuitter.HoverTextColor = Color.Red;
-            parrotButtonQuitter.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
-            parrotButtonQuitter.Location = new Point(4, 6);
-            parrotButtonQuitter.Name = "parrotButtonQuitter";
-            parrotButtonQuitter.Size = new Size(145, 36);
-            parrotButtonQuitter.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            parrotButtonQuitter.TabIndex = 0;
-            parrotButtonQuitter.TextColor = Color.FromArgb(64, 64, 64);
-            parrotButtonQuitter.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            parrotButtonQuitter.Vertical_Alignment = StringAlignment.Center;
-            parrotButtonQuitter.Visible = false;
-            parrotButtonQuitter.Click += parrotButtonQuitter_Click;
-            // 
-            // parrotButtonRetirer
-            // 
-            parrotButtonRetirer.BackgroundColor = Color.FromArgb(255, 255, 255);
-            parrotButtonRetirer.ButtonImage = null;
-            parrotButtonRetirer.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
-            parrotButtonRetirer.ButtonText = "Retirer le membre";
-            parrotButtonRetirer.ClickBackColor = Color.FromArgb(195, 195, 195);
-            parrotButtonRetirer.ClickTextColor = Color.Red;
-            parrotButtonRetirer.CornerRadius = 5;
-            parrotButtonRetirer.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            parrotButtonRetirer.Horizontal_Alignment = StringAlignment.Center;
-            parrotButtonRetirer.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
-            parrotButtonRetirer.HoverTextColor = Color.Red;
-            parrotButtonRetirer.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
-            parrotButtonRetirer.Location = new Point(155, 6);
-            parrotButtonRetirer.Name = "parrotButtonRetirer";
-            parrotButtonRetirer.Size = new Size(155, 36);
-            parrotButtonRetirer.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            parrotButtonRetirer.TabIndex = 1;
-            parrotButtonRetirer.TextColor = Color.FromArgb(64, 64, 64);
-            parrotButtonRetirer.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            parrotButtonRetirer.Vertical_Alignment = StringAlignment.Center;
-            parrotButtonRetirer.Visible = false;
-            parrotButtonRetirer.Click += parrotButtonRetirer_Click;
-            // 
             // parrotButtonSupprimer
             // 
-            parrotButtonSupprimer.BackgroundColor = Color.FromArgb(255, 255, 255);
+            parrotButtonSupprimer.BackgroundColor = Color.Silver;
             parrotButtonSupprimer.ButtonImage = null;
             parrotButtonSupprimer.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
             parrotButtonSupprimer.ButtonText = "Supprimer le groupe";
@@ -378,17 +238,112 @@
             parrotButtonSupprimer.Visible = false;
             parrotButtonSupprimer.Click += parrotButtonSupprimer_Click;
             // 
-            // listBoxMembres
+            // parrotButtonRetirer
             // 
-            listBoxMembres.BorderStyle = BorderStyle.FixedSingle;
-            listBoxMembres.Dock = DockStyle.Fill;
-            listBoxMembres.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            listBoxMembres.IntegralHeight = false;
-            listBoxMembres.ItemHeight = 22;
-            listBoxMembres.Location = new Point(6, 6);
-            listBoxMembres.Name = "listBoxMembres";
-            listBoxMembres.Size = new Size(496, 281);
-            listBoxMembres.TabIndex = 1;
+            parrotButtonRetirer.BackgroundColor = Color.Silver;
+            parrotButtonRetirer.ButtonImage = null;
+            parrotButtonRetirer.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
+            parrotButtonRetirer.ButtonText = "Retirer le membre";
+            parrotButtonRetirer.ClickBackColor = Color.FromArgb(195, 195, 195);
+            parrotButtonRetirer.ClickTextColor = Color.Red;
+            parrotButtonRetirer.CornerRadius = 5;
+            parrotButtonRetirer.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            parrotButtonRetirer.Horizontal_Alignment = StringAlignment.Center;
+            parrotButtonRetirer.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
+            parrotButtonRetirer.HoverTextColor = Color.Red;
+            parrotButtonRetirer.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
+            parrotButtonRetirer.Location = new Point(155, 6);
+            parrotButtonRetirer.Name = "parrotButtonRetirer";
+            parrotButtonRetirer.Size = new Size(155, 36);
+            parrotButtonRetirer.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            parrotButtonRetirer.TabIndex = 1;
+            parrotButtonRetirer.TextColor = Color.FromArgb(64, 64, 64);
+            parrotButtonRetirer.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            parrotButtonRetirer.Vertical_Alignment = StringAlignment.Center;
+            parrotButtonRetirer.Visible = false;
+            parrotButtonRetirer.Click += parrotButtonRetirer_Click;
+            // 
+            // parrotButtonQuitter
+            // 
+            parrotButtonQuitter.BackgroundColor = Color.Silver;
+            parrotButtonQuitter.ButtonImage = null;
+            parrotButtonQuitter.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
+            parrotButtonQuitter.ButtonText = "Quitter le groupe";
+            parrotButtonQuitter.ClickBackColor = Color.FromArgb(195, 195, 195);
+            parrotButtonQuitter.ClickTextColor = Color.Red;
+            parrotButtonQuitter.CornerRadius = 5;
+            parrotButtonQuitter.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            parrotButtonQuitter.Horizontal_Alignment = StringAlignment.Center;
+            parrotButtonQuitter.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
+            parrotButtonQuitter.HoverTextColor = Color.Red;
+            parrotButtonQuitter.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
+            parrotButtonQuitter.Location = new Point(4, 6);
+            parrotButtonQuitter.Name = "parrotButtonQuitter";
+            parrotButtonQuitter.Size = new Size(145, 36);
+            parrotButtonQuitter.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            parrotButtonQuitter.TabIndex = 0;
+            parrotButtonQuitter.TextColor = Color.FromArgb(64, 64, 64);
+            parrotButtonQuitter.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            parrotButtonQuitter.Vertical_Alignment = StringAlignment.Center;
+            parrotButtonQuitter.Visible = false;
+            parrotButtonQuitter.Click += parrotButtonQuitter_Click;
+            // 
+            // plInviterRow
+            // 
+            plInviterRow.Controls.Add(parrotButtonInviter);
+            plInviterRow.Controls.Add(comboBoxInviter);
+            plInviterRow.Controls.Add(lblInviter);
+            plInviterRow.Dock = DockStyle.Bottom;
+            plInviterRow.Location = new Point(6, 293);
+            plInviterRow.Name = "plInviterRow";
+            plInviterRow.Size = new Size(496, 88);
+            plInviterRow.TabIndex = 0;
+            plInviterRow.Visible = false;
+            // 
+            // parrotButtonInviter
+            // 
+            parrotButtonInviter.BackgroundColor = Color.DimGray;
+            parrotButtonInviter.ButtonImage = null;
+            parrotButtonInviter.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
+            parrotButtonInviter.ButtonText = "Inviter";
+            parrotButtonInviter.ClickBackColor = Color.FromArgb(195, 195, 195);
+            parrotButtonInviter.ClickTextColor = Color.DodgerBlue;
+            parrotButtonInviter.CornerRadius = 5;
+            parrotButtonInviter.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            parrotButtonInviter.Horizontal_Alignment = StringAlignment.Center;
+            parrotButtonInviter.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
+            parrotButtonInviter.HoverTextColor = Color.DodgerBlue;
+            parrotButtonInviter.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
+            parrotButtonInviter.Location = new Point(368, 30);
+            parrotButtonInviter.Name = "parrotButtonInviter";
+            parrotButtonInviter.Size = new Size(120, 36);
+            parrotButtonInviter.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            parrotButtonInviter.TabIndex = 2;
+            parrotButtonInviter.TextColor = Color.White;
+            parrotButtonInviter.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            parrotButtonInviter.Vertical_Alignment = StringAlignment.Center;
+            parrotButtonInviter.Click += parrotButtonInviter_Click;
+            // 
+            // comboBoxInviter
+            // 
+            comboBoxInviter.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxInviter.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBoxInviter.FormattingEnabled = true;
+            comboBoxInviter.Location = new Point(4, 32);
+            comboBoxInviter.Name = "comboBoxInviter";
+            comboBoxInviter.Size = new Size(356, 31);
+            comboBoxInviter.TabIndex = 1;
+            // 
+            // lblInviter
+            // 
+            lblInviter.AutoSize = true;
+            lblInviter.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblInviter.ForeColor = Color.FromArgb(64, 64, 64);
+            lblInviter.Location = new Point(4, 2);
+            lblInviter.Name = "lblInviter";
+            lblInviter.Size = new Size(172, 25);
+            lblInviter.TabIndex = 0;
+            lblInviter.Text = "Inviter un membre";
             // 
             // tabDiscussion
             // 
@@ -405,7 +360,7 @@
             // flowLayoutPanelMessages
             // 
             flowLayoutPanelMessages.AutoScroll = true;
-            flowLayoutPanelMessages.BackColor = Color.White;
+            flowLayoutPanelMessages.BackColor = SystemColors.ButtonFace;
             flowLayoutPanelMessages.Dock = DockStyle.Fill;
             flowLayoutPanelMessages.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanelMessages.Location = new Point(6, 6);
@@ -425,26 +380,9 @@
             plComposer.TabIndex = 1;
             plComposer.Visible = false;
             // 
-            // bigTextBoxMessage
-            // 
-            bigTextBoxMessage.BackColor = Color.White;
-            bigTextBoxMessage.Font = new Font("Tahoma", 11F);
-            bigTextBoxMessage.ForeColor = Color.DimGray;
-            bigTextBoxMessage.Image = null;
-            bigTextBoxMessage.Location = new Point(4, 10);
-            bigTextBoxMessage.MaxLength = 2000;
-            bigTextBoxMessage.Multiline = false;
-            bigTextBoxMessage.Name = "bigTextBoxMessage";
-            bigTextBoxMessage.PlaceholderText = "Votre message...";
-            bigTextBoxMessage.ReadOnly = false;
-            bigTextBoxMessage.Size = new Size(368, 46);
-            bigTextBoxMessage.TabIndex = 0;
-            bigTextBoxMessage.TextAlignment = HorizontalAlignment.Left;
-            bigTextBoxMessage.UseSystemPasswordChar = false;
-            // 
             // parrotButtonEnvoyer
             // 
-            parrotButtonEnvoyer.BackgroundColor = Color.FromArgb(255, 255, 255);
+            parrotButtonEnvoyer.BackgroundColor = Color.Gray;
             parrotButtonEnvoyer.ButtonImage = null;
             parrotButtonEnvoyer.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
             parrotButtonEnvoyer.ButtonText = "Envoyer";
@@ -461,16 +399,79 @@
             parrotButtonEnvoyer.Size = new Size(112, 38);
             parrotButtonEnvoyer.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             parrotButtonEnvoyer.TabIndex = 1;
-            parrotButtonEnvoyer.TextColor = Color.FromArgb(64, 64, 64);
+            parrotButtonEnvoyer.TextColor = Color.White;
             parrotButtonEnvoyer.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             parrotButtonEnvoyer.Vertical_Alignment = StringAlignment.Center;
             parrotButtonEnvoyer.Click += parrotButtonEnvoyer_Click;
+            // 
+            // bigTextBoxMessage
+            // 
+            bigTextBoxMessage.BackColor = SystemColors.ButtonFace;
+            bigTextBoxMessage.Font = new Font("Tahoma", 11F);
+            bigTextBoxMessage.ForeColor = Color.DimGray;
+            bigTextBoxMessage.Image = null;
+            bigTextBoxMessage.Location = new Point(4, 10);
+            bigTextBoxMessage.MaxLength = 2000;
+            bigTextBoxMessage.Multiline = false;
+            bigTextBoxMessage.Name = "bigTextBoxMessage";
+            bigTextBoxMessage.PlaceholderText = "Votre message...";
+            bigTextBoxMessage.ReadOnly = false;
+            bigTextBoxMessage.Size = new Size(368, 46);
+            bigTextBoxMessage.TabIndex = 0;
+            bigTextBoxMessage.TextAlignment = HorizontalAlignment.Left;
+            bigTextBoxMessage.UseSystemPasswordChar = false;
+            // 
+            // lblMonRole
+            // 
+            lblMonRole.AutoSize = true;
+            lblMonRole.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblMonRole.ForeColor = Color.DodgerBlue;
+            lblMonRole.Location = new Point(16, 106);
+            lblMonRole.Name = "lblMonRole";
+            lblMonRole.Size = new Size(122, 25);
+            lblMonRole.TabIndex = 3;
+            lblMonRole.Text = "Votre rôle : ...";
+            lblMonRole.Visible = false;
+            // 
+            // lblMembreCount
+            // 
+            lblMembreCount.AutoSize = true;
+            lblMembreCount.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblMembreCount.ForeColor = Color.FromArgb(64, 64, 64);
+            lblMembreCount.Location = new Point(16, 80);
+            lblMembreCount.Name = "lblMembreCount";
+            lblMembreCount.Size = new Size(94, 25);
+            lblMembreCount.TabIndex = 2;
+            lblMembreCount.Text = "0 membre";
+            // 
+            // lblCreateur
+            // 
+            lblCreateur.AutoSize = true;
+            lblCreateur.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblCreateur.ForeColor = Color.FromArgb(64, 64, 64);
+            lblCreateur.Location = new Point(16, 54);
+            lblCreateur.Name = "lblCreateur";
+            lblCreateur.Size = new Size(95, 25);
+            lblCreateur.TabIndex = 1;
+            lblCreateur.Text = "Créé par ...";
+            // 
+            // lblGroupeNom
+            // 
+            lblGroupeNom.AutoEllipsis = true;
+            lblGroupeNom.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblGroupeNom.ForeColor = Color.FromArgb(30, 132, 73);
+            lblGroupeNom.Location = new Point(16, 14);
+            lblGroupeNom.Name = "lblGroupeNom";
+            lblGroupeNom.Size = new Size(516, 34);
+            lblGroupeNom.TabIndex = 0;
+            lblGroupeNom.Text = "Aucun groupe sélectionné";
+            lblGroupeNom.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // FormGroupe
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(224, 224, 224);
+            BackColor = Color.FromArgb(64, 70, 40);
             ClientSize = new Size(900, 600);
             Controls.Add(plRight);
             Controls.Add(plLeft);
@@ -492,9 +493,7 @@
             plInviterRow.PerformLayout();
             tabDiscussion.ResumeLayout(false);
             plComposer.ResumeLayout(false);
-            plComposer.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion

@@ -40,7 +40,7 @@ namespace reseau_sociaux
             lblSender.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblSender.Location = new Point(10, 4);
             lblSender.Name = "lblSender";
-            lblSender.Size = new Size(50, 23);
+            lblSender.Size = new Size(48, 23);
             lblSender.TabIndex = 0;
             lblSender.Text = "Nom";
             // 
@@ -49,7 +49,7 @@ namespace reseau_sociaux
             lblContent.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblContent.Location = new Point(10, 26);
             lblContent.Name = "lblContent";
-            lblContent.Size = new Size(320, 40);
+            lblContent.Size = new Size(320, 30);
             lblContent.TabIndex = 1;
             lblContent.Text = "Message";
             // 
@@ -60,7 +60,7 @@ namespace reseau_sociaux
             lblTime.ForeColor = Color.Gray;
             lblTime.Location = new Point(280, 70);
             lblTime.Name = "lblTime";
-            lblTime.Size = new Size(40, 20);
+            lblTime.Size = new Size(44, 20);
             lblTime.TabIndex = 2;
             lblTime.Text = "12:34";
             // 
@@ -77,7 +77,6 @@ namespace reseau_sociaux
             btnSupprimerMsg.Size = new Size(28, 22);
             btnSupprimerMsg.TabIndex = 3;
             btnSupprimerMsg.Text = "×";
-            btnSupprimerMsg.TextAlign = ContentAlignment.MiddleCenter;
             btnSupprimerMsg.UseVisualStyleBackColor = false;
             btnSupprimerMsg.Visible = false;
             btnSupprimerMsg.Click += btnSupprimerMsg_Click;
